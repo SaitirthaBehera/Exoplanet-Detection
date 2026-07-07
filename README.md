@@ -190,8 +190,8 @@ pytest tests/ -v
 ### 1. Clone & Install
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/bah-2026-exoplanet-detection.git
-cd bah-2026-exoplanet-detection
+git clone https://github.com/SaitirthaBehera/Exoplanet-Detection.git
+cd Exoplanet-Detection
 pip install -r requirements.txt
 ```
 
