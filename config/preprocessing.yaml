@@ -1,0 +1,76 @@
+# ============================================================================
+# ExoVision AI — Preprocessing Pipeline Configuration
+# ============================================================================
+# This file controls every configurable stage of the light-curve
+# preprocessing pipeline (src/preprocessing/*). Edit values here instead of
+# hard-coding them in code — the pipeline reads this file at runtime via
+# src.preprocessing_config.load_preprocessing_config().
+#
+# All keys have safe defaults baked into the loader, so this file may be
+# partially specified; missing keys fall back to defaults.
+# ============================================================================
+
+# Reproducibility -----------------------------------------------------------
+random_seed: 42
+
+# Section 3 — Missing Value Handling -----------------------------------------
+missing_values:
+  # One of: linear, cubic, nearest, ffill, bfill
+  strategy: linear
+
+# Section 4 — Outlier Detection ----------------------------------------------
+outliers:
+  # One of: sigma_clip, mad, percentile
+  method: sigma_clip
+  sigma_threshold: 5.0        # used when method == sigma_clip or mad
+  mad_threshold: 3.5          # used when method == mad (modified z-score)
+  percentile_lower: 0.5       # used when method == percentile
+  percentile_upper: 99.5      # used when method == percentile
+
+# Section 5 — Normalization ---------------------------------------------------
+normalization:
+  # One of: minmax, zscore, median, robust
+  method: median
+
+# Section 6 — Trend Removal (Detrending) --------------------------------------
+detrending:
+  enabled: false
+  # One of: polynomial, savgol, running_median
+  method: savgol
+  polynomial_degree: 3
+  savgol_window: 401
+  savgol_polyorder: 3
+  running_median_window: 101
+
+# Section 7 — Window Segmentation ---------------------------------------------
+windowing:
+  window_size: 2001
+  overlap: 0.75              # fraction of window_size overlapping between windows (0.0-<1.0)
+  padding_mode: edge          # numpy.pad mode used to pad the final short window
+
+# Section 8 — Data Augmentation (train-time only) -----------------------------
+augmentation:
+  enabled: false
+  gaussian_noise:
+    probability: 0.5
+    sigma_range: [0.0005, 0.003]
+  time_shift:
+    probability: 0.3
+    max_shift_fraction: 0.02
+  flux_scaling:
+    probability: 0.3
+    scale_range: [0.98, 1.02]
+  random_masking:
+    probability: 0.2
+    max_mask_fraction: 0.05
+  baseline_drift:
+    probability: 0.3
+    amplitude_range: [0.0002, 0.002]
+
+# Noise handling ---------------------------------------------------------------
+noise_level: 0.001
+
+# Section 12 — Outputs ----------------------------------------------------------
+output:
+  processed_dir: data/processed
+  save_windows: true

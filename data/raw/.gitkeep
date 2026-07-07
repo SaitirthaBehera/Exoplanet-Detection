@@ -1,0 +1,4 @@
+# This file is intentionally left empty.
+# data/raw/ stores downloaded light curve .npy files.
+# These files are gitignored (too large for version control).
+# Run `from src.data_pipeline import download_all_targets` to populate.
