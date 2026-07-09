@@ -195,7 +195,7 @@ cd Exoplanet-Detection
 pip install -r requirements.txt
 ```
 
-### 2. Download Data (Person B)
+### 2. Download Data (Data pipeline & preprocessing)
 
 ```python
 from src.data_pipeline import download_all_targets
@@ -215,7 +215,7 @@ noisy, clean, labels = generate_synthetic_dataset(n_samples=5000)
 print(f"Training data: {noisy.shape}")  # (5000, 2001, 1)
 ```
 
-### 4. Train Models (Person A)
+### 4. Train Models (Model architecture)
 
 ```python
 from src.autoencoder import build_autoencoder, train_autoencoder, save_autoencoder
@@ -234,7 +234,7 @@ clf_history = train_classifier(clf_model, X_train, y_train, epochs=50)
 save_classifier(clf_model)
 ```
 
-### 5. Validate Against Known Exoplanets (Person C)
+### 5. Validate Against Known Exoplanets (Validation and benchmarking)
 
 ```python
 from src.validation import run_benchmark, generate_report
@@ -246,7 +246,7 @@ results = run_benchmark(
 print(generate_report(results))
 ```
 
-### 6. Launch Dashboard (Person D)
+### 6. Launch Dashboard (Visualization)
 
 ```bash
 streamlit run app/streamlit_app.py
