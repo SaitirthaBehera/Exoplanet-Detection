@@ -1,5 +1,6 @@
 # Core dependencies
 
+tensorflow
 lightkurve>=2.4.0
 astropy>=6.0
 astroquery>=0.4.7
